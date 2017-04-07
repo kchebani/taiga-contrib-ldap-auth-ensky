@@ -92,10 +92,7 @@ def register_or_update(username: str, email: str, full_name: str):
         user = user_model.objects.get(username = username)
     except user_model.DoesNotExist:
         # create a new user
-        username_unique = slugify_uniquely(username,
-                                           user_model,
-                                           slugfield = "username")
-        user = user_model.objects.create(username = username_unique,
+        user = user_model.objects.create(username = username,
                                          email = email,
                                          full_name = full_name)
         user_registered_signal.send(sender = user.__class__, user = user)
